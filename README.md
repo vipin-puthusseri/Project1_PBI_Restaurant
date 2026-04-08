@@ -53,17 +53,17 @@ Order_Hour = HOUR(order_details[order_time])
 ## 📈 Dashboard 1: Executive Sales Overview
 **Purpose: High-level KPIs and quick insights for managers**
 
-Top Row (KPI Cards): Total Sales, Total Orders, AOV, YTD Sales
+Top Row (KPI Cards): Total Sales, Total Orders, AOV, MTD Sales
 
-Middle Row (Comparisons): Sales by Category (Bar), Category % Contribution (Donut), Top N Items Sales (Bar)
+Middle Row (Comparisons): Sales by Category (Bar), MoM Sales% (Area), Top N Items Sales (Bar)
 
-Bottom Row (Trends): Daily Sales vs 3-Day Moving Average (Line), Cumulative Sales (Line), MoM Growth % (KPI)
+Bottom Row (Trends): Daily Sales(Line), Sales by order Hour (Area)
 
 ## 📉 Dashboard 2: Operational Insights
 **Purpose: Drill-down analysis for analysts and operations teams**
 
-Top Row (KPI Cards): Total Items Sold, Sales by Hour, Previous Month Sales
+Top Row (KPI Cards): Total Items Sold, Total Orders
 
-Middle Row (Distribution & Ranking): Top Items Rank (Bar), Order Value Distribution (Histogram), Sales by Category (Stacked)
+Middle Row (Distribution & Ranking): Top Items Rank (Bar), Orders per hour (Line), Orders by Weekday (Line)
 
-Bottom Row (Time Intelligence): MTD vs Previous Month (Line/Combo), 7-Day Moving Average (Line), YoY Sales Comparison (Line)
+Bottom Row: Daily orders (Line), Monthly orders (Clustered Bar), Orders by category (Pie)
