@@ -35,7 +35,9 @@ MTD Sales = TOTALMTD([Total Sales], DateTable[Date])
 Previous Month Sales = CALCULATE([Total Sales], PREVIOUSMONTH(DateTable[Date]))
 
 MoM Growth % = VAR CurrentMonth = [MTD Sales]
+
                VAR PrevMonth = [Previous Month Sales]
+               
                RETURN IF(ISBLANK(PrevMonth),0,DIVIDE(CurrentMonth-PrevMonth,PrevMonth))
 
 YTD Sales = TOTALYTD([Total Sales], DateTable[Date])
