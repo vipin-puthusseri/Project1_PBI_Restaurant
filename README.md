@@ -21,35 +21,34 @@ The project showcases best practices in data modeling, storytelling with visuals
 ## 🧮 Key Measures
 **DAX**
 
-Total Sales = SUMX(order_details, RELATED(menu_items[price]))
+Total_Sales = SUMX(order_details, RELATED(menu_items[price]))
 
-Total Orders = COUNTROWS(order_details)
+Total_Orders = DISTINCTCOUNT(order_details[order_id])
 
-Total Items Sold = SUM(order_details[quantity])
+Total_Items_Ordered = COUNTROWS(order_details)
 
-Average Order Value (AOV) = [Total Sales] / [Total Orders]
+Average_Order_Value = DIVIDE([Total_Sales],[Total_Orders],0)
 
+MTD_sales = TOTALMTD([Total_Sales],Date_Table[Date])
 
-MTD Sales = TOTALMTD([Total Sales], DateTable[Date])
+Previous_Month_sales = CALCULATE([Total_Sales],PREVIOUSMONTH(Date_Table[Date]))
 
-Previous Month Sales = CALCULATE([Total Sales], PREVIOUSMONTH(DateTable[Date]))
+MoM_Sales% = 
+VAR CurrentMonth = [MTD_sales]
+VAR PrevMonth = [Previous_Month_sales]
 
-MoM Growth % = VAR CurrentMonth = [MTD Sales]
+RETURN
+IF(
+    ISBLANK(PrevMonth),0, DIVIDE(CurrentMonth-PrevMonth,PrevMonth)
+)
 
-               VAR PrevMonth = [Previous Month Sales]
-               
-               RETURN IF(ISBLANK(PrevMonth),0,DIVIDE(CurrentMonth-PrevMonth,PrevMonth))
+YTD_Sales = TOTALYTD([Total_Sales], DateTable[Date])
 
-YTD Sales = TOTALYTD([Total Sales], DateTable[Date])
+Cumulative_sales = CALCULATE([Total_Sales],FILTER(ALL(Date_Table),Date_Table[Date]<=MAX(Date_Table[Date])))
 
-Cumulative Sales = CALCULATE([Total Sales], FILTER(ALL(DateTable[Date]), DateTable[Date] <= MAX(DateTable[Date])))
+3Day_Moving_Avg = AVERAGEX(DATESINPERIOD(DateTable[Date], MAX(DateTable[Date]), -3, DAY), [Total_Sales])
 
-Moving Average (3-Day) =
-AVERAGEX(DATESINPERIOD(DateTable[Date], MAX(DateTable[Date]), -3, DAY), [Total Sales])
-
-Order Hour = HOUR(order_details[order_date])
-
-Avg Orders per Hour = DIVIDE([Total Orders], DISTINCTCOUNT(order_details[Order Hour]))
+Order_Hour = HOUR(order_details[order_time])
 
 ## 📈 Dashboard 1: Executive Sales Overview
 **Purpose: High-level KPIs and quick insights for managers**
